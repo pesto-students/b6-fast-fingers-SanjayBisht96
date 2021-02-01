@@ -1,10 +1,14 @@
 import styles from '../styles/Game.module.css';
 import Image from 'next/image';
 import UserContext from '../components/UserContext';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 export default function User() {
-    const { user } = useContext(UserContext);
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        setUser(localStorage.getItem("userName"));
+    },[])
 
     return  (<div className={styles.user}>
                     <img

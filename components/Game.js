@@ -3,7 +3,7 @@ import Router from 'next/router';
 import UserContext from '../components/UserContext';
 import { useContext, useState, useEffect } from 'react';
 import data from '../public/data/dictionary.json';
-import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement } from '../components/consts';
+import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed } from '../components/consts';
 
 export default function Game() {
   const [time, setTime] = useState(1);
@@ -21,8 +21,8 @@ export default function Game() {
     if (time>0) {
       interval = setInterval(() => {
         updateScore();
-        if(time > 10) { 
-          setTime(time => time - 10); 
+        if(time > counterMiliSecSpeed) { 
+          setTime(time => time - counterMiliSecSpeed); 
         } else {
           setTime(time => 0);
         }
@@ -81,11 +81,10 @@ export default function Game() {
 
   const matchWord = () => {
     if(!document.getElementById('playerInput')) return false;
-    
     let playerInput = document.getElementById('playerInput').value;
     let gameCharList = document.getElementById("word").children;
     let charMatch = true;
-
+    playerInput.replace(/[^0-9a-z]/gi, '');
     for( let ele of gameCharList){
       ele.classList.remove("matched");
     }

@@ -3,6 +3,7 @@ import React from 'react';
 import App from 'next/app';
 import Router from 'next/router';
 import UserContext from '../components/UserContext';
+import { counterMiliSecSpeed } from '../components/consts';
 
 export default class MyApp extends App {
   state = {
@@ -15,10 +16,18 @@ export default class MyApp extends App {
     userScoreList: []
   };
 
-  updateScore = () => {
+  setScore = (setThisScore) => {
     this.setState({
-      score: this.state.score + 10,
+      score: setThisScore,
     });
+    localStorage.setItem("currentScore",this.state.score);
+  }
+
+  updateScore = () => {
+      this.setState({
+        score: this.state.score + counterMiliSecSpeed,
+      });
+    localStorage.setItem("currentScore",this.state.score);
   }
 
   resetScore = () => {
@@ -100,6 +109,7 @@ export default class MyApp extends App {
                 ...this.state,
                 resetGame: this.resetGame,
                 updateScore: this.updateScore,
+                setScore: this.setScore,
                 resetScore: this.resetScore,
                 getFormattedTime: this.getFormattedTime,
                 addScoreToList: this.addScoreToList,

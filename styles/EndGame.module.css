@@ -1,0 +1,10 @@
+.end{
+    font-size: larger;
+    color: white;
+}
+
+.title, .stop{
+    font-size: larger;
+    font-weight: 900;
+    color: red;
+}

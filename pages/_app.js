@@ -18,7 +18,7 @@ export default class MyApp extends App {
 
   setScore = (setThisScore) => {
     this.setState({
-      score: setThisScore,
+      score: parseInt(setThisScore),
     });
     localStorage.setItem("currentScore",this.state.score);
   }

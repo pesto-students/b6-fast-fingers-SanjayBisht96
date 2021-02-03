@@ -29,6 +29,7 @@ export default function Home() {
   return (
     <div>
       <Head>
+      <link rel="icon" href="/assets/keyboard.png" />
       <title>Fast Fingers</title>
     </Head>
     <div className={styles.container}>

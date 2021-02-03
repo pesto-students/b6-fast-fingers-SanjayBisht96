@@ -42,7 +42,7 @@ export default function Game() {
         }
         scoreList = [...scoreList, score];
         localStorage.setItem("userScoreList", JSON.stringify(scoreList));
-        Router.push("/game-over");        
+        Router.push("/game-over");
       }
     }
     return () => clearInterval(interval);
@@ -81,14 +81,19 @@ export default function Game() {
 
   const matchWord = () => {
     if(!document.getElementById('playerInput')) return false;
+
     let playerInput = document.getElementById('playerInput').value;
     let gameCharList = document.getElementById("word").children;
     let charMatch = true;
-    playerInput.replace(/[^0-9a-z]/gi, '');
+    if(!playerInput.match(/[^a-z]/gi)){
+      playerInput.replace(/[^a-z]/gi,'');
+      document.getElementById('playerInput').value = playerInput;
+    }
+    console.log(playerInput);
     for( let ele of gameCharList){
       ele.classList.remove("matched");
     }
-
+    if(playerInput.length > gameCharList.length) return false;
     playerInput.split('').map((character,index) => {
       if(character === gameCharList[index].innerText && charMatch){
         gameCharList[index].classList.add("matched");

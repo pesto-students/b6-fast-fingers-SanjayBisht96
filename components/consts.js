@@ -11,6 +11,6 @@ const wordLengthLimit = {
 }
 
 const diffFactorIncrement = 0.01;
-const counterMiliSecSpeed = 10;
+const counterMiliSecSpeed = 5;
 
 export { DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed };

@@ -1,6 +1,6 @@
-import styles from '../styles/Game.module.css';
+import styles from '../../styles/Game.module.css';
 import { useEffect, useContext, useState, memo } from 'react';
-import UserContext from '../components/UserContext';
+import UserContext from '../UserContext';
 
 export default memo(function ScoreBoard(){
   const { userScoreList, addScoreToList, getFormattedTime } = useContext(UserContext);

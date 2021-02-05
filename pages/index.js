@@ -8,7 +8,7 @@ import Head from 'next/head'
 
 export default function Home() {
   const [userName, setUserName] = useState('');
-  const { diffFactor, diffLevel, updateDiffLevel, updateDiffFactor } = useContext(UserContext)
+  const { diffFactor, diffLevel, updateDiffLevel, updateDiffFactor,score } = useContext(UserContext)
   const handleUserName = (e) => {
     setUserName(e.target.value);
   }
@@ -51,7 +51,7 @@ export default function Home() {
         <option value="1.5">Medium</option>
         <option value="2">Hard</option>
       </select>
-      <div className={styles.start+ ` button`} onClick={startGame}>
+      <div className={styles.start + ` button`} onClick={startGame}>
       <img
         src="/assets/start.png"
         alt="Start Game"  

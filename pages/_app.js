@@ -25,7 +25,7 @@ export default class MyApp extends App {
 
   updateScore = () => {
       this.setState({
-        score: this.state.score + counterMiliSecSpeed,
+        score: parseInt(this.state.score) + counterMiliSecSpeed,
       });
     localStorage.setItem("currentScore",this.state.score);
   }
@@ -40,7 +40,7 @@ export default class MyApp extends App {
     factor = factor + increment;
     localStorage.setItem('diffFactor',factor);
     this.setState({
-      diffFactor: factor
+      diffFactor: parseFloat(factor)
     });
   }
 

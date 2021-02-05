@@ -1,6 +1,5 @@
-import styles from '../styles/Game.module.css';
+import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
-import UserContext from '../components/UserContext';
 import { useContext, useState, useEffect } from 'react';
 
 export default function User() {

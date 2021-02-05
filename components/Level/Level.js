@@ -1,7 +1,7 @@
-import styles from '../styles/Game.module.css';
+import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
 import { useContext, useEffect } from 'react';
-import UserContext from '../components/UserContext';
+import UserContext from '../UserContext';
 
 export default function Level() {
     const { diffLevel } = useContext(UserContext);

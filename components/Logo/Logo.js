@@ -1,4 +1,4 @@
-import styles from '../styles/Game.module.css';
+import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
 
 export default function Logo() {

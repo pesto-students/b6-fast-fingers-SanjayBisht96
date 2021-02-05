@@ -4,12 +4,12 @@ import UserContext from '../components/UserContext';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 
-const Logo = dynamic(() => import('../components/Logo'));
-const Level = dynamic(() => import('../components/Level'));
-const ScoreBoard = dynamic(() => import('../components/ScoreBoard'));
-const User = dynamic(() => import('../components/User'));
-const Score = dynamic(() => import('../components/Score'));
-const Game = dynamic(() => import('../components/Game'));
+const Logo = dynamic(() => import('../components/Logo/Logo'));
+const Level = dynamic(() => import('../components/Level/Level'));
+const ScoreBoard = dynamic(() => import('../components/ScoreBoard/ScoreBoard'));
+const User = dynamic(() => import('../components/User/User'));
+const Score = dynamic(() => import('../components/Score/Score'));
+const Game = dynamic(() => import('../components/Game/Game'));
 
 export default function InGame() {
     const { resetGame } = useContext(UserContext);
@@ -24,7 +24,7 @@ export default function InGame() {
                 <Logo/>
                 <Level/>
                 <ScoreBoard/>
-                <div className={styles.stop} onClick={resetGame}>
+                <div className={styles.stop + ` button`} onClick={resetGame}>
             <img 
                 src="/assets/stop.png"
                 alt="Fast Finger Logo"

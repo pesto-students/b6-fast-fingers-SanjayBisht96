@@ -1,15 +1,16 @@
-import styles from '../styles/Game.module.css';
+import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
 import { useContext, useState, useEffect } from 'react';
-import UserContext from './UserContext';
+import UserContext from '../UserContext';
 import Router from 'next/router';
 
 
 export default function EndGame() {
     const { score } = useContext(UserContext);
-    const { getFormattedTime,addScoreToList } = useContext(UserContext);
+    const { getFormattedTime,addScoreToList,resetScore } = useContext(UserContext);
     const [maxScore ,setMaxScore ] = useState(-1);
     const continueGame = () => {
+        resetScore();
         Router.push("/in-game");
     }
 
@@ -29,7 +30,7 @@ export default function EndGame() {
                     score > maxScore &&
                     <div className={styles.endText}>High Score!</div>
                 }
-                <div className={styles.text}  onClick={continueGame}>
+                <div className={styles.text + ` button`}  onClick={continueGame}>
                     <img 
                         src="/assets/replay.png"
                         alt="Fast Finger Logo"

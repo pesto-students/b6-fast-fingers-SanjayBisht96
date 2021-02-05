@@ -1,9 +1,9 @@
-import styles from '../styles/Game.module.css';
+import styles from '../../styles/Game.module.css';
 import Router from 'next/router';
-import UserContext from '../components/UserContext';
+import UserContext from '../UserContext';
 import { useContext, useState, useEffect } from 'react';
-import data from '../public/data/dictionary.json';
-import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed } from '../components/consts';
+import data from '../../public/data/dictionary.json';
+import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed } from '../consts';
 
 export default function Game() {
   const [time, setTime] = useState(1);
@@ -75,7 +75,7 @@ export default function Game() {
     while(randomWord.length < minLength || randomWord.length > maxLength){
       randomWord = data[Math.floor(Math.random() * data.length)];
     }
-    return randomWord;
+    return randomWord.toUpperCase();
   }
 
 
@@ -85,11 +85,12 @@ export default function Game() {
     let playerInput = document.getElementById('playerInput').value;
     let gameCharList = document.getElementById("word").children;
     let charMatch = true;
-    if(!playerInput.match(/[^a-z]/gi)){
-      playerInput.replace(/[^a-z]/gi,'');
+    if(playerInput.match(/[^A-Za-z]/gi)){
+      playerInput = playerInput.replace(/[^A-za-z]/gi,'');
       document.getElementById('playerInput').value = playerInput;
     }
-    console.log(playerInput);
+    playerInput = playerInput.toUpperCase();
+    document.getElementById('playerInput').value = playerInput;
     for( let ele of gameCharList){
       ele.classList.remove("matched");
     }

@@ -12,7 +12,12 @@ const Score = dynamic(() => import('../components/Score/Score'));
 const Game = dynamic(() => import('../components/Game/Game'));
 
 export default function InGame() {
-    const { resetGame } = useContext(UserContext);
+    const { setTime } = useContext(UserContext);
+
+    const stopGame = () => {
+        setTime(0);
+    }
+
     return (
         <div>
         <Head>
@@ -24,7 +29,7 @@ export default function InGame() {
                 <Logo/>
                 <Level/>
                 <ScoreBoard/>
-                <div className={styles.stop + ` button`} onClick={resetGame}>
+                <div className={styles.stop + ` button`} onClick={stopGame}>
             <img 
                 src="/assets/stop.png"
                 alt="Fast Finger Logo"

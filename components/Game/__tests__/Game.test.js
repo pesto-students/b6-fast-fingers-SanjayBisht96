@@ -1,4 +1,4 @@
-import Game from "../Game";
+import Game from "..";
 import { render } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 

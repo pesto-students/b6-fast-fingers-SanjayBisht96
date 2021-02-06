@@ -16,6 +16,12 @@ export default class MyApp extends App {
     userScoreList: []
   };
 
+  setTime = (setThisTime) => {
+    this.setState({
+      time: parseInt(setThisTime),
+    });
+  }
+
   setScore = (setThisScore) => {
     this.setState({
       score: parseInt(setThisScore),
@@ -107,6 +113,7 @@ export default class MyApp extends App {
     return (
       <UserContext.Provider value={{
                 ...this.state,
+                setTime: this.setTime,
                 resetGame: this.resetGame,
                 updateScore: this.updateScore,
                 setScore: this.setScore,

@@ -30,7 +30,7 @@ export default function GameOver() {
                 alt="Fast Finger Logo"
                 className={styles.stopImg}                    
              />
-                <div className={styles.stopText}>STOP GAME</div>
+                <div className={styles.stopText}>QUIT GAME</div>
              </div>
             </div>
             <div className={styles.middle}>

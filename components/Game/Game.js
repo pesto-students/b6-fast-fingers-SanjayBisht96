@@ -6,7 +6,7 @@ import data from '../../public/data/dictionary.json';
 import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed } from '../consts';
 
 export default function Game() {
-  const [time, setTime] = useState(1);
+  const {time, setTime} = useContext(UserContext);
   const { updateScore, resetScore, getFormattedTime, updateDiffFactor, updateDiffLevel } = useContext(UserContext);
   const { score, diffFactor,diffLevel } = useContext(UserContext);
   const [word, setWord ] = useState('');
@@ -14,6 +14,7 @@ export default function Game() {
   useEffect(() => {
     resetScore();
     newWord();
+    setTime(0);
   },[])
 
   useEffect(() => {
@@ -22,9 +23,9 @@ export default function Game() {
       interval = setInterval(() => {
         updateScore();
         if(time > counterMiliSecSpeed) { 
-          setTime(time => time - counterMiliSecSpeed); 
+          setTime(time - counterMiliSecSpeed); 
         } else {
-          setTime(time => 0);
+          setTime(0);
         }
         let charMatched = matchWord();
         if(charMatched)newWord();  

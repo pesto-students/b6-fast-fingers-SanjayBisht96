@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useContext, useState, useEffect } from 'react';
 import UserContext from '../UserContext';
 import Router from 'next/router';
+import { inGameUrl } from '../consts';
 
 
 export default function EndGame() {
@@ -11,7 +12,7 @@ export default function EndGame() {
     const [maxScore ,setMaxScore ] = useState(-1);
     const continueGame = () => {
         resetScore();
-        Router.push("/in-game");
+        Router.push(inGameUrl);
     }
 
     useEffect(() => {

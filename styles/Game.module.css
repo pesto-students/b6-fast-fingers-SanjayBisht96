@@ -18,7 +18,7 @@
 }
 
 .text, .stop{
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     font-size: larger;
     font-weight: 900;
     color: red;
@@ -47,13 +47,13 @@
 
 .scoreText{
     color:seashell;
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     font-size: medium;
     margin: 20px;
 }
 .personalBestText{
     color:red;
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     font-size: small;
     text-align: center;
 }
@@ -63,7 +63,9 @@
     border-radius: 10px;
     padding-left: 10px;
     margin-top: 140px;
+    margin-left: 20px;
     width:100%;
+    overflow: auto;
 }
 
 .stop{
@@ -83,7 +85,7 @@
 }
 
 .endGame {
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     font-size: x-large;
     color: seashell;
     margin-top: 100px;
@@ -104,7 +106,7 @@
 }
 
 .game{
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     font-size: x-large;
     color: red;
     margin-top: 200px;
@@ -113,7 +115,7 @@
 }
 
 .matchText {
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     color:seashell;
 }
 
@@ -135,7 +137,7 @@
     color: #000;
     outline: 0px solid transparent;
     font-size: medium;
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     width: 350px;
     height: 50px;
     box-shadow: 0 3px 16px 0 rgb(0 0 0 / 80%);

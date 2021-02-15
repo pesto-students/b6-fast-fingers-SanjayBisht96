@@ -24,7 +24,7 @@
   font-size: 30px;
   font-weight: 500;
   color: red;
-  font-family: "Press Start 2P";
+  //font-family: "Press Start 2P";
 }
 
 .startImg {
@@ -40,14 +40,14 @@
   color: #ff5155;
   margin: 10px;
   font-size: 30px;
-  font-family: "Press Start 2P";
+  //font-family: "Press Start 2P";
 }
 
 .inputName {
     background-color: darkgray;
     outline: 0px solid transparent;
     font-size: medium;
-    font-family: "Press Start 2P";
+    //font-family: "Press Start 2P";
     width: 350px;
     height: 50px;
     box-shadow: 0 3px 16px 0 rgb(0 0 0 / 80%);
@@ -62,7 +62,7 @@
   border: 1px solid #fff;
   color: #97a5a7;
   font-size: medium;
-  font-family: "Press Start 2P";
+  //font-family: "Press Start 2P";
   padding-left: 22px;
   width: 350px;
   height: 50px;

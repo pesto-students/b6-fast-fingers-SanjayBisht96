@@ -45,6 +45,7 @@ export default function Home() {
         type="text"
         placeholder="Enter Your Name..."
         onChange={handleUserName}
+        autocomplete="off"
         />
       <select onChange={updateDiffParams} className={styles.selectLevel}>
         <option value="1">Easy</option>

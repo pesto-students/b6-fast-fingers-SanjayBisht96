@@ -1,16 +1,16 @@
 import styles from '../../styles/Game.module.css';
 import Router from 'next/router';
 import UserContext from '../UserContext';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect,useRef    } from 'react';
 import data from '../../public/data/dictionary.json';
-import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed } from '../consts';
+import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed, endGameUrl } from '../consts';
 
 export default function Game() {
   const {time, setTime} = useContext(UserContext);
   const { updateScore, resetScore, getFormattedTime, updateDiffFactor, updateDiffLevel } = useContext(UserContext);
   const { score, diffFactor,diffLevel } = useContext(UserContext);
   const [word, setWord ] = useState('');
-  
+  const timer = useRef(null);
   useEffect(() => {
     resetScore();
     newWord();
@@ -18,9 +18,8 @@ export default function Game() {
   },[])
 
   useEffect(() => {
-    let interval = null;
     if (time>0) {
-      interval = setInterval(() => {
+      timer.current = setInterval(() => {
         updateScore();
         if(time > counterMiliSecSpeed) { 
           setTime(time - counterMiliSecSpeed); 
@@ -29,9 +28,9 @@ export default function Game() {
         }
         let charMatched = matchWord();
         if(charMatched)newWord();  
-      }, 1);
+      }, counterMiliSecSpeed);
     } else if ( time == 0) {
-      clearInterval(interval);
+      clearInterval(timer.current);
       let charMatched = matchWord();
       if(charMatched){
         newWord();
@@ -43,10 +42,10 @@ export default function Game() {
         }
         scoreList = [...scoreList, score];
         localStorage.setItem("userScoreList", JSON.stringify(scoreList));
-        Router.push("/game-over");
+        Router.push(endGameUrl);
       }
     }
-    return () => clearInterval(interval);
+    return () => clearInterval(timer.current);
   }, [ time ]);
 
 
@@ -115,7 +114,7 @@ export default function Game() {
                 <div id='word' className={styles.matchText}>{ word.split('').map((character,index) => (
                   <span key={index}>{character}</span>
                 )) }</div>
-                <input id='playerInput' className={styles.enterWord} onChange={matchWord}></input>
+                <input id='playerInput' className={styles.enterWord} onChange={matchWord} autocomplete="off"></input>
             </div>
      )
   }

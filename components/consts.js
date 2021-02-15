@@ -11,6 +11,11 @@ const wordLengthLimit = {
 }
 
 const diffFactorIncrement = 0.01;
-const counterMiliSecSpeed = 5;
+const counterMiliSecSpeed = 100;
 
-export { DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed };
+// Routes 
+const homeUrl ="/";
+const inGameUrl = "/in-game";
+const endGameUrl = "/game-over";
+
+export { DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed, homeUrl, inGameUrl, endGameUrl };

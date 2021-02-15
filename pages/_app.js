@@ -3,7 +3,7 @@ import React from 'react';
 import App from 'next/app';
 import Router from 'next/router';
 import UserContext from '../components/UserContext';
-import { counterMiliSecSpeed } from '../components/consts';
+import { counterMiliSecSpeed, homeUrl } from '../components/consts';
 
 export default class MyApp extends App {
   state = {
@@ -68,7 +68,7 @@ export default class MyApp extends App {
       diffFactor: 1,
       userScoreList: []
     });
-    Router.push('/');
+    Router.push(homeUrl);
   }
 
   addScoreToList = (ScoreList) => {
@@ -102,14 +102,13 @@ export default class MyApp extends App {
         user, diffLevel
       });
     } else {
-      Router.push('/');
+      Router.push(homeUrl);
     }
   };
 
 
   render() {
     const { Component, pageProps } = this.props;
-
     return (
       <UserContext.Provider value={{
                 ...this.state,

@@ -1,36 +1,47 @@
 import styles from '../../styles/Game.module.css';
 import Router from 'next/router';
-import UserContext from '../UserContext';
-import { useContext, useState, useEffect,useRef    } from 'react';
-import data from '../../public/data/dictionary.json';
+import { useState, useEffect,useRef    } from 'react';
+import getFormattedTime from '../../utils/getFormattedTime';
+import {useSelector, useDispatch} from 'react-redux';
+import {incrementScore,resetScore} from '../../redux/actions/scoreAction';
 import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed, endGameUrl } from '../consts';
+import { newWord, matchWord} from '../../utils/inGameUtils';
 
 export default function Game() {
-  const {time, setTime} = useContext(UserContext);
-  const { updateScore, resetScore, getFormattedTime, updateDiffFactor, updateDiffLevel } = useContext(UserContext);
-  const { score, diffFactor,diffLevel } = useContext(UserContext);
+  //const {time, setTime, getFormattedTime, updateScore, resetScore , updateDiffFactor,updateDiffLevel} = useContext(ScoreContext);
+  //const { score, diffFactor,diffLevel } = useContext(ScoreContext);
   const [word, setWord ] = useState('');
+  //const [time, setTime] = useState(0);
+  const [diffFactor, setDiffFactor] = useState(1);
+  const [diffLevel, setDiffLevel] = useState("Easy");
   const timer = useRef(null);
+  const time = useRef(0);
+  const score = useSelector(state => state.score.score);
+  const dispatch = useDispatch();
+   
   useEffect(() => {
-    resetScore();
+    setDiffFactor(localStorage.getItem("diffFactor"));
+    setDiffLevel(localStorage.getItem("diffLevel"));
+    dispatch(resetScore());
     newWord();
-    setTime(0);
+    console.log(time);
+    timer.current = setInterval(() => {
+      console.log(score);
+      dispatch(incrementScore());
+      if(time.current > counterMiliSecSpeed) { 
+        time.current = time.current - counterMiliSecSpeed; 
+      } else {
+        time.current = 0;
+      }
+      let charMatched = matchWord();
+      if(charMatched)newWord();  
+    }, counterMiliSecSpeed);    
   },[])
 
   useEffect(() => {
-    if (time>0) {
-      timer.current = setInterval(() => {
-        updateScore();
-        if(time > counterMiliSecSpeed) { 
-          setTime(time - counterMiliSecSpeed); 
-        } else {
-          setTime(0);
-        }
-        let charMatched = matchWord();
-        if(charMatched)newWord();  
-      }, counterMiliSecSpeed);
-    } else if ( time == 0) {
+    if ( time.current == 0 ||time.current<0) {
       clearInterval(timer.current);
+      localStorage.setItem("currentScore",score);
       let charMatched = matchWord();
       if(charMatched){
         newWord();
@@ -45,76 +56,18 @@ export default function Game() {
         Router.push(endGameUrl);
       }
     }
-    return () => clearInterval(timer.current);
   }, [ time ]);
 
 
-  const newWord = () => {
-    updateDiffFactor(parseFloat(localStorage.getItem('diffFactor')) ,diffFactorIncrement);
-    updateDiffLevel(localStorage.getItem('diffLevel'));
-    if(DiffFactorToDiffLevel[diffFactor]){
-      updateDiffLevel(DiffFactorToDiffLevel[diffFactor]);
-      localStorage.setItem('diffLevel', diffLevel);
-    }
-    const [minLength, maxLength] = wordLengthLimit[diffLevel];
-    document.getElementById("playerInput").focus();
-    let randomWord = getWord(minLength, maxLength);
-    setWord(randomWord);
-    let timeInMillisec = Math.ceil((randomWord.length/diffFactor) * 1000);
-    setTime(timeInMillisec);
-    let gameCharList = document.getElementById("word").children;
-    for( let ele of gameCharList){
-      ele.classList.remove("matched");
-    }
-    document.getElementById('playerInput').value = '';
-  }
 
-
-  const getWord = (minLength, maxLength) => { 
-    let randomWord = data[Math.floor(Math.random() * data.length)];
-    while(randomWord.length < minLength || randomWord.length > maxLength){
-      randomWord = data[Math.floor(Math.random() * data.length)];
-    }
-    return randomWord.toUpperCase();
-  }
-
-
-  const matchWord = () => {
-    if(!document.getElementById('playerInput')) return false;
-
-    let playerInput = document.getElementById('playerInput').value;
-    let gameCharList = document.getElementById("word").children;
-    let charMatch = true;
-    if(playerInput.match(/[^A-Za-z]/gi)){
-      playerInput = playerInput.replace(/[^A-za-z]/gi,'');
-      document.getElementById('playerInput').value = playerInput;
-    }
-    playerInput = playerInput.toUpperCase();
-    document.getElementById('playerInput').value = playerInput;
-    for( let ele of gameCharList){
-      ele.classList.remove("matched");
-    }
-    if(playerInput.length > gameCharList.length) return false;
-    playerInput.split('').map((character,index) => {
-      if(character === gameCharList[index].innerText && charMatch){
-        gameCharList[index].classList.add("matched");
-      }else{
-        charMatch = false;
-      }
-    });
-
-    if(playerInput.length !== gameCharList.length) return false;
-
-    return charMatch;
-  }
 
 
     return  (<div className={styles.game}>
-                <div className={styles.countDownTime}>{ getFormattedTime(time) }</div>
+                <div className={styles.countDownTime}>{ getFormattedTime(time.current) }</div>
                 <div id='word' className={styles.matchText}>{ word.split('').map((character,index) => (
                   <span key={index}>{character}</span>
                 )) }</div>
-                <input id='playerInput' className={styles.enterWord} onChange={matchWord} autocomplete="off"></input>
+                <input id='playerInput' className={styles.enterWord} onChange={matchWord} autoComplete="off"></input>
             </div>
      )
   }

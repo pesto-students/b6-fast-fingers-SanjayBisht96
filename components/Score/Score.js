@@ -1,11 +1,14 @@
 import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
 import UserContext from '../UserContext';
+import ScoreContext from '../ScoreContext';
 import { useEffect, useContext,useState } from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import getFormattedTime from '../../utils/getFormattedTime';
 
 export default function Score() {
-  const { score, setScore }  = useContext(UserContext);
-  const { getFormattedTime } = useContext(UserContext);
+  const score = useSelector(state => {return state.score.score});
+  //const { getFormattedTime } = useContext(ScoreContext);
 
 
     return  (<div className={styles.score}>

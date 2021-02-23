@@ -3,6 +3,7 @@ import { useState , useContext, createContext } from 'react';
 import UserContext from '../components/UserContext';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import { homeUrl } from '../components/consts';
 
 const Logo = dynamic(() => import('../components/Logo/Logo'));
 const Level = dynamic(() => import('../components/Level/Level'));
@@ -12,7 +13,11 @@ const Score = dynamic(() => import('../components/Score/Score'));
 const EndGame = dynamic(() => import('../components/EndGame/EndGame'));
 
 export default function GameOver() {
-    const { resetGame } = useContext(UserContext);
+    const resetGame = () => {
+        localStorage.clear();
+        Router.push(homeUrl);
+    }
+
     return (
     <div>
         <Head>

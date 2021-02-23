@@ -1,14 +1,13 @@
 import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
-import { useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import UserContext from '../UserContext';
 
 export default function Level() {
-    const { diffLevel } = useContext(UserContext);
-
+    const [ diffLevel,setDiffLevel ] = useState(0);
     useEffect(() => {
-        
-      },[diffLevel])
+        setDiffLevel(localStorage.getItem("diffLevel"));
+      },[])
     
 
     return  (<div className={styles.level}>

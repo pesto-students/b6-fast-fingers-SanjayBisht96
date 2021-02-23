@@ -4,23 +4,25 @@ import { useContext, useState, useEffect } from 'react';
 import UserContext from '../UserContext';
 import Router from 'next/router';
 import { inGameUrl } from '../consts';
+import getFormattedTime from '../../utils/getFormattedTime';
+import {useSelector, useDispatch} from 'react-redux';
+import {resetScore} from '../../redux/actions/scoreAction';
 
 
 export default function EndGame() {
-    const { score } = useContext(UserContext);
-    const { getFormattedTime,addScoreToList,resetScore } = useContext(UserContext);
+    const score = useSelector(state => {return state.score.score});
+    const dispatch = useDispatch();
     const [maxScore ,setMaxScore ] = useState(-1);
     const continueGame = () => {
-        resetScore();
+        dispatch(resetScore());
         Router.push(inGameUrl);
     }
 
     useEffect(() => {
-        const retrievedList = JSON.parse(localStorage.getItem("userScoreList"));
-        addScoreToList(retrievedList);
-        if(retrievedList){
-          setMaxScore(Math.max.apply(Math,retrievedList));
-        }
+        let retrievedList = JSON.parse(localStorage.getItem("userScoreList"));
+        //addScoreToList(retrievedList);
+        retrievedList.push(score);
+        localStorage.setItem("userScoreList",JSON.stringify(retrievedList));
     },[]);
   
 

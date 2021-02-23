@@ -12,10 +12,9 @@ const Score = dynamic(() => import('../components/Score/Score'));
 const Game = dynamic(() => import('../components/Game/Game'));
 
 export default function InGame() {
-    const { setTime } = useContext(UserContext);
 
     const stopGame = () => {
-        setTime(0);
+         
     }
 
     return (

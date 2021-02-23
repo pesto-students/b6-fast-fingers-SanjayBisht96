@@ -3,27 +3,33 @@ import Image from 'next/image'
 import UserContext from '../components/UserContext';
 import { useState , useContext } from 'react';
 import Router from 'next/router';
-import { DiffFactorToDiffLevel } from '../components/consts';
+import { DiffFactorToDiffLevel,inGameUrl } from '../components/consts';
 import Head from 'next/head'
 
 export default function Home() {
   const [userName, setUserName] = useState('');
-  const { diffFactor, diffLevel, updateDiffLevel, updateDiffFactor,score } = useContext(UserContext)
+  const [emptyNameError, setEmptyNameError] = useState(false);
+  const [diffFactor, setDiffFactor] = useState(1);
+  //const { diffFactor, diffLevel, updateDiffLevel, updateDiffFactor,score } = useContext(UserContext)
+
   const handleUserName = (e) => {
     setUserName(e.target.value);
   }
 
   const updateDiffParams = (e) => {
     let factor = parseFloat(e.target.value);
-    updateDiffFactor(factor);
-    updateDiffLevel(DiffFactorToDiffLevel[factor]);
+    setDiffFactor(factor);
   }
 
   const startGame = (e) => {
+    if(!userName){
+      setEmptyNameError(true);
+      return; 
+    }
     localStorage.setItem('userName', userName);
-    localStorage.setItem('diffLevel', diffLevel);
     localStorage.setItem('diffFactor', diffFactor);
-    Router.push('/in-game');
+    localStorage.setItem('diffLevel', DiffFactorToDiffLevel[diffFactor]);
+    Router.push(inGameUrl);
   }
 
   return (
@@ -45,8 +51,9 @@ export default function Home() {
         type="text"
         placeholder="Enter Your Name..."
         onChange={handleUserName}
-        autocomplete="off"
+        autoComplete="off"
         />
+        { emptyNameError ? <div className={error}>Please enter a name.</div>:null }
       <select onChange={updateDiffParams} className={styles.selectLevel}>
         <option value="1">Easy</option>
         <option value="1.5">Medium</option>

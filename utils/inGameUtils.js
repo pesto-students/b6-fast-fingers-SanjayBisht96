@@ -9,33 +9,19 @@ const getWord = (minLength, maxLength) => {
     return randomWord.toUpperCase();
   }
 
-
-
-const newWord = () => {
-    setDiffFactor( diffFactor => parseFloat(localStorage.getItem('diffFactor')) + diffFactorIncrement);
-    localStorage.setItem('diffFactor',diffFactor);
-    setDiffLevel(localStorage.getItem('diffLevel'));
-    if(DiffFactorToDiffLevel[diffFactor]){
-      setDiffLevel(DiffFactorToDiffLevel[diffFactor]);
-      localStorage.setItem('diffLevel', diffLevel);
-    }
+const newWord = (diffLevel,diffFactor) => {
     const [minLength, maxLength] = wordLengthLimit[diffLevel];
     document.getElementById("playerInput").focus();
-    let randomWord = getWord(minLength, maxLength);
-    setWord(randomWord);
-    let timeInMillisec = Math.ceil((randomWord.length/diffFactor) * 1000);
-    console.log(timeInMillisec);
-    //setTime(time=>timeInMillisec);
-    time.current = timeInMillisec;
-    
+    let randomWord = getWord(minLength, maxLength);   
     let gameCharList = document.getElementById("word").children;
     for( let ele of gameCharList){
       ele.classList.remove("matched");
     }
     document.getElementById('playerInput').value = '';
+    return randomWord;
   }
 
-  const matchWord = () => {
+const matchWord = () => {
     if(!document.getElementById('playerInput')) return false;
 
     let playerInput = document.getElementById('playerInput').value;

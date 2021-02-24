@@ -3,7 +3,6 @@ import React from 'react';
 import App from 'next/app';
 import Router from 'next/router';
 import UserContext from '../components/UserContext';
-import ScoreContext from '../components/ScoreContext';
 import { counterMiliSecSpeed, homeUrl } from '../components/consts';
 import dynamic from 'next/dynamic';
 import {Provider} from 'react-redux';

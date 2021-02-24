@@ -106,7 +106,6 @@
 }
 
 .game{
-    //font-family: "Press Start 2P";
     font-size: x-large;
     color: red;
     margin-top: 200px;
@@ -115,7 +114,6 @@
 }
 
 .matchText {
-    //font-family: "Press Start 2P";
     color:seashell;
 }
 

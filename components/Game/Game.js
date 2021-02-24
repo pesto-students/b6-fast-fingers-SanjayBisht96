@@ -5,7 +5,11 @@ import getFormattedTime from '../../utils/getFormattedTime';
 import {useSelector, useDispatch} from 'react-redux';
 import {incrementScore,resetScore} from '../../redux/actions/scoreAction';
 import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed, endGameUrl } from '../consts';
-import { newWord, matchWord} from '../../utils/inGameUtils';
+import { newWord, matchWord } from '../../utils/inGameUtils';
+import dynamic from 'next/dynamic';
+
+
+const Clock = dynamic(() => import('../../components/Clock'));
 
 export default function Game() {
   //const {time, setTime, getFormattedTime, updateScore, resetScore , updateDiffFactor,updateDiffLevel} = useContext(ScoreContext);
@@ -18,13 +22,34 @@ export default function Game() {
   const time = useRef(0);
   const score = useSelector(state => state.score.score);
   const dispatch = useDispatch();
-   
+
+  
+  const updateTimer = (randomWord) => {
+    let timeInMillisec = Math.ceil((randomWord.length/diffFactor) * 1000);
+    console.log(timeInMillisec);
+    time.current = timeInMillisec;
+  }
+
+
+  const updateDiffFactor = () =>{
+    setDiffFactor( diffFactor => parseFloat(localStorage.getItem('diffFactor')) + diffFactorIncrement);
+    localStorage.setItem('diffFactor',diffFactor);
+    setDiffLevel(localStorage.getItem('diffLevel'));
+    if(DiffFactorToDiffLevel[diffFactor]){
+      setDiffLevel(DiffFactorToDiffLevel[diffFactor]);
+      localStorage.setItem('diffLevel', diffLevel);
+    }
+  }
+
   useEffect(() => {
-    setDiffFactor(localStorage.getItem("diffFactor"));
-    setDiffLevel(localStorage.getItem("diffLevel"));
+    setDiffFactor(diffFactor => localStorage.getItem("diffFactor"));
+    setDiffLevel(diffLevel => localStorage.getItem("diffLevel"));
     dispatch(resetScore());
-    newWord();
-    console.log(time);
+    updateDiffFactor();
+    let randomWord = newWord(diffLevel,diffFactor);
+    setWord(word => randomWord);
+    updateTimer(randomWord);
+    
     timer.current = setInterval(() => {
       console.log(score);
       dispatch(incrementScore());
@@ -34,17 +59,28 @@ export default function Game() {
         time.current = 0;
       }
       let charMatched = matchWord();
-      if(charMatched)newWord();  
-    }, counterMiliSecSpeed);    
+      if(charMatched){
+        updateDiffFactor();
+        let randomWord = newWord(diffLevel,diffFactor);
+        setWord(word => randomWord);
+        updateTimer(randomWord);
+      }
+    }, counterMiliSecSpeed);
+    console.log(timer.current);
+    
   },[])
 
   useEffect(() => {
-    if ( time.current == 0 ||time.current<0) {
+    if ( time.current == 0 || time.current<0) {
       clearInterval(timer.current);
+      console.log(timer.current);
       localStorage.setItem("currentScore",score);
       let charMatched = matchWord();
       if(charMatched){
-        newWord();
+        updateDiffFactor();
+        let randomWord = newWord(diffLevel,diffFactor);
+        setWord(word => randomWord);
+        updateTimer(randomWord);
       }else{
         let scoreList = [];
         if(localStorage.getItem("userScoreList")){
@@ -63,7 +99,7 @@ export default function Game() {
 
 
     return  (<div className={styles.game}>
-                <div className={styles.countDownTime}>{ getFormattedTime(time.current) }</div>
+                <Clock time={time.current}/>
                 <div id='word' className={styles.matchText}>{ word.split('').map((character,index) => (
                   <span key={index}>{character}</span>
                 )) }</div>

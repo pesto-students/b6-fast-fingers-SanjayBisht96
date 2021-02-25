@@ -2,6 +2,7 @@ import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
 import getFormattedTime from '../../utils/getFormattedTime';
 import { useState, useEffect,useRef    } from 'react';
+//import './index.css';
 
 export default function Clock(props) {
 

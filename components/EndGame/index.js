@@ -1,7 +1,6 @@
 import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
-import { useContext, useState, useEffect } from 'react';
-import UserContext from '../UserContext';
+import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { inGameUrl } from '../consts';
 import getFormattedTime from '../../utils/getFormattedTime';

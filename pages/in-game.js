@@ -1,50 +1,63 @@
 import styles from '../styles/Game.module.css'
-import { useState , useContext, createContext } from 'react';
-import UserContext from '../components/UserContext';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 
-const Logo = dynamic(() => import('../components/Logo/Logo'));
-const Level = dynamic(() => import('../components/Level/Level'));
-const ScoreBoard = dynamic(() => import('../components/ScoreBoard/ScoreBoard'));
-const User = dynamic(() => import('../components/User/User'));
-const Score = dynamic(() => import('../components/Score/Score'));
-const Game = dynamic(() => import('../components/Game/Game'));
+const Header = dynamic(() => import('../components/Header'));
+const Logo = dynamic(() => import('../components/Logo'));
+const Level = dynamic(() => import('../components/Level'));
+const ScoreBoard = dynamic(() => import('../components/ScoreBoard'));
+const User = dynamic(() => import('../components/User'));
+const Score = dynamic(() => import('../components/Score'));
+const Game = dynamic(() => import('../components/Game'));
+const Button = dynamic(() => import('../components/Button')); 
 
 export default function InGame() {
 
+    const {userName, setUserName } = useUserName('');
     const stopGame = () => {
          
     }
 
     return (
-        <div>
-        <Head>
-        <link rel="icon" href="/assets/keyboard.png" />
-            <title>Fast Fingers</title>
-        </Head>
-        <div className={styles.container}>
-            <div className={styles.left}>
-                <Logo/>
-                <Level/>
-                <ScoreBoard/>
-                <div className={styles.stop + ` button`} onClick={stopGame}>
-            <img 
-                src="/assets/stop.png"
-                alt="Fast Finger Logo"
-                className={styles.stopImg}                    
-             />
-             <div className={styles.stopText}>STOP GAME</div>
-             </div>
+        <React.Fragment>
+            <Header/>
+            <div className={styles.container}>
+                <div className={styles.left}>
+                    <Logo 
+                        logoClass={"logoGameContainer"}
+                        imgSrc={"/assets/keyboard.png"}
+                        alt={"Fast Finger Logo"}
+                        imgClass={"smallLogo"}
+                        textClass={"gameLogo"}
+                        text={"Fast Fingers"}
+                    />
+                    <Level/>
+                    <ScoreBoard/>
+                    {/* <div className={styles.stop + ` button`} onClick={stopGame}>
+                <img 
+                    src="/assets/stop.png"
+                    alt="Fast Finger Logo"
+                    className={styles.stopImg}                    
+                />
+                <div className={styles.stopText}>STOP GAME</div>
+                </div> */}
+                <Button/>
+                </div>
+                <div className={styles.middle}>
+                        <Game stop={true}/>
+                </div>
+                <div className={styles.right}>
+                <Logo 
+                        logoClass={"userLogoContainer"}
+                        imgSrc={"/assets/user.png"}
+                        alt={"User Logo"}
+                        imgClass={"smallLogo"}
+                        textClass={"userLogo"}
+                        text={userName}
+                    />
+                    <Score/>
+                </div>
             </div>
-            <div className={styles.middle}>
-                <Game/>
-            </div>
-            <div className={styles.right}>
-                <User/>
-                <Score/>
-            </div>
-        </div>
-    </div>
+    </React.Fragment>
     )
 }

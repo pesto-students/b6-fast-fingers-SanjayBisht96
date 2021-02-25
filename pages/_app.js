@@ -3,13 +3,10 @@ import React from 'react';
 import App from 'next/app';
 import Router from 'next/router';
 import UserContext from '../components/UserContext';
-import { counterMiliSecSpeed, homeUrl } from '../components/consts';
+import { counterMiliSecSpeed, homeUrl } from '../utils/consts';
 import dynamic from 'next/dynamic';
-import {Provider} from 'react-redux';
-import store from '../redux/store';
 
-const Score = dynamic(() => import('../components/Score/Score'));
-const Game = dynamic(() => import('../components/Game/Game'));
+
 
 export default class MyApp extends App {
   // state = {
@@ -117,9 +114,7 @@ export default class MyApp extends App {
     const { Component, pageProps  } = this.props;
     return (
       <React.Fragment>
-        <Provider store={store}>
         <Component {...pageProps} />
-        </Provider>
       {/* <UserContext.Provider value={{
                 ...this.state,
                 resetGame: this.resetGame,

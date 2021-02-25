@@ -1,74 +1,80 @@
 import styles from '../styles/Home.module.css'
-import Image from 'next/image'
-import UserContext from '../components/UserContext';
-import { useState , useContext } from 'react';
+import React from 'react';
 import Router from 'next/router';
-import { DiffFactorToDiffLevel,inGameUrl } from '../components/consts';
-import Head from 'next/head'
+import { clearStorage,addToStorage } from '../utils/localStorage';
+import { EASY,DIFF_OPTIONS,inGameUrl } from '../utils/consts';
+import useUserName from '../hooks/useUserName';
+import useDifficulty from '../hooks/useDifficulty';
+import dynamic from 'next/dynamic';
+
+const Header = dynamic(() => import('../components/Header'));
+const TextBox = dynamic(() => import('../components/TextBox'));
+const DropDown = dynamic(() => import('../components/DropDown'));
+const Logo = dynamic(() => import('../components/Logo'));
+const Button = dynamic(() => import('../components/Button'));
 
 export default function Home() {
-  const [userName, setUserName] = useState('');
-  const [emptyNameError, setEmptyNameError] = useState(false);
-  const [diffFactor, setDiffFactor] = useState(1);
-  //const { diffFactor, diffLevel, updateDiffLevel, updateDiffFactor,score } = useContext(UserContext)
+  const {userName, setUserName, emptyNameError, setEmptyNameError } = useUserName('');
+  const { diffFactor,setDiffFactor,diffLevel } = useDifficulty(EASY);
 
   const handleUserName = (e) => {
     setUserName(e.target.value);
   }
 
-  const updateDiffParams = (e) => {
-    let factor = parseFloat(e.target.value);
-    setDiffFactor(factor);
-  }
-
-  const startGame = (e) => {
+  const startGame = () => {
+    clearStorage();
     if(!userName){
       setEmptyNameError(true);
+      console.log(emptyNameError);
       return; 
+    }else{
+      setEmptyNameError(false);
     }
-    localStorage.setItem('userName', userName);
-    localStorage.setItem('diffFactor', diffFactor);
-    localStorage.setItem('diffLevel', DiffFactorToDiffLevel[diffFactor]);
+    addToStorage('userName', userName);
+    addToStorage('diffFactor', diffFactor);
+    addToStorage('diffLevel', diffLevel);
     Router.push(inGameUrl);
   }
 
   return (
-    <div>
-      <Head>
-      <link rel="icon" href="/assets/keyboard.png" />
-      <title>Fast Fingers</title>
-    </Head>
     <div className={styles.container}>
-      <img
-        src="/assets/keyboard.png"
-        alt="Fast Finger Logo"  
-        className={styles.keyImg}
-      />
-      <div className={styles.title}>Fast Fingers</div>
-      <input
-        id="userNameInput"
-        className={styles.inputName}
-        type="text"
-        placeholder="Enter Your Name..."
-        onChange={handleUserName}
-        autoComplete="off"
+        <Header/>
+      {/* <div className={styles.container}>
+        <img
+          src="/assets/keyboard.png"
+          alt="Fast Finger Logo"  
+          className={styles.keyImg}
         />
-        { emptyNameError ? <div className={error}>Please enter a name.</div>:null }
-      <select onChange={updateDiffParams} className={styles.selectLevel}>
-        <option value="1">Easy</option>
-        <option value="1.5">Medium</option>
-        <option value="2">Hard</option>
-      </select>
-      <div className={styles.start + ` button`} onClick={startGame}>
-      <img
-        src="/assets/start.png"
-        alt="Start Game"  
-        width="64px" height="64px" 
-        className={styles.startImg}
-      />
-      <div className={styles.startText}>Start Game</div>
-      </div>
-    </div>
+        <div className={styles.title}>Fast Fingers</div> */}
+        <Logo 
+          logoClass={"logohomeContainer"}
+          imgSrc={"/assets/keyboard.png"}
+          alt={"Fast Finger Logo"}
+          imgClass={"keyImg"}
+          textClass={"homeLogo"}
+          text={"Fast Fingers"}
+        />
+        <TextBox 
+                id={"inputName"}
+                textBoxClass={"inputNameClass"}
+                text={userName}
+                changeFunction={handleUserName}
+                placeholder={"Type your name"}
+        />
+        { emptyNameError ? <div className={styles.error}>Please enter a name.</div>:null }
+        <DropDown
+          diffOptions={DIFF_OPTIONS}
+          setDiffFactor={setDiffFactor}
+        />
+        <Button
+          styleClass
+          clickFunction={startGame}
+          imgSrc={'/assets/start.png'}
+          altText={"Start Game"}
+          imgClass={"startImg"}
+          textClass={"startText"}
+          ButtonText={"Start Game"}
+        />
     </div>
   )
 }

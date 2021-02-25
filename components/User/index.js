@@ -1,6 +1,9 @@
 import styles from '../../styles/Game.module.css';
 import Image from 'next/image';
 import { useContext, useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+const Logo = dynamic(() => import('../components/Logo'));
 
 export default function User() {
     const [user, setUser] = useState('');

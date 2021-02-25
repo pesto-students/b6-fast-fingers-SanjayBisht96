@@ -4,20 +4,20 @@ import { useState, useEffect,useRef    } from 'react';
 import getFormattedTime from '../../utils/getFormattedTime';
 import {useSelector, useDispatch} from 'react-redux';
 import {incrementScore,resetScore} from '../../redux/actions/scoreAction';
-import { DiffFactorToDiffLevel, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed, endGameUrl } from '../consts';
+import { EASY,DIFF_OPTIONS, wordLengthLimit,diffFactorIncrement, counterMiliSecSpeed, endGameUrl } from '../../utils/consts';
 import { newWord, matchWord } from '../../utils/inGameUtils';
 import dynamic from 'next/dynamic';
 
 
-const Clock = dynamic(() => import('../../components/Clock'));
+const Clock = dynamic(() => import('../Clock'));
 
 export default function Game() {
   //const {time, setTime, getFormattedTime, updateScore, resetScore , updateDiffFactor,updateDiffLevel} = useContext(ScoreContext);
   //const { score, diffFactor,diffLevel } = useContext(ScoreContext);
   const [word, setWord ] = useState('');
   //const [time, setTime] = useState(0);
-  const [diffFactor, setDiffFactor] = useState(1);
-  const [diffLevel, setDiffLevel] = useState("Easy");
+  const [diffFactor, setDiffFactor] = useState(DIFF_OPTIONS[EASY]);
+  const [diffLevel, setDiffLevel] = useState(EASY);
   const timer = useRef(null);
   const time = useRef(0);
   const score = useSelector(state => state.score.score);

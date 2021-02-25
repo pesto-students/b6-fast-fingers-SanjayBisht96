@@ -1,3 +1,13 @@
+const EASY = "Easy";
+const MEDIUM = "Medium";
+const HARD = "Hard";
+
+const DIFF_OPTIONS = {
+    "Easy": 1,
+    "Medium": 1.5,
+    "Hard": 2
+};
+
 const DiffFactorToDiffLevel = {
     1: "Easy",
     1.5: "Medium",
@@ -18,4 +28,4 @@ const homeUrl ="/";
 const inGameUrl = "/in-game";
 const endGameUrl = "/game-over";
 
-export { DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed, homeUrl, inGameUrl, endGameUrl };
+export { EASY,MEDIUM,HARD,DIFF_OPTIONS,DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed, homeUrl, inGameUrl, endGameUrl };

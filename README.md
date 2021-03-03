@@ -1,34 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Fast Fingers
+Try it out: https://fast-finger-app.vercel.app
 
-## Getting Started
+Pesto Tech is proudly launching its own speed typing game named Fast fingers. You have been awarded with the project and you need to design and develop this project which should meet the requirements mentioned in the MVP below.
 
-First, run the development server:
+MVP Requirement
+Ask player to enter his/her name before starting the game.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Do not ask player to enter his/her name again if he plays the game again in the same session.
+Show proper error message if player doesn't enter his/her name and clicks on START GAME.
+Set Default difficulty level to EASY. User should be able to change the difficulty level using dropdown.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start the game on START GAME button click.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Show random word from dictionary and an input box on game screen.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+For EASY difficulty level, word length should be less than or equal to 4.
+For MEDIUM difficulty level, word length should be between 5-8(noth numbers included).
+For HARD difficulty level, word length should be greater than 8.
+As soon as the typed word matches the word shown on screen, it should we considered submitted (pressing "ENTER" button shall not be required to submit a word). Empty the input box after a successful attempt.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+A timer shall be shown on the screen for every word and the maximum time that an user is allowed to type a word will depend on the difficulty factor. Refer to the formula provided below to calculate the maximum time allowed :
 
-## Learn More
+Timer value = (Number of letters in the word) / (Difficulty factor)
 
-To learn more about Next.js, take a look at the following resources:
+Round the timer value to nearest integer bigger than the value.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Initially the difficulty factor would be 1 and it will keep increasing as the player progresses in the game and the timer value is guaranteed to be greater than or equal to 2 seconds that means a player must get at least 2 seconds to type a word. So whenever the calculated value is found to be less than 2 seconds, it should be rounded off to 2 seconds always.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+There are three levels in game: EASY, MEDIUM and HARD
+Difficulty factor for easy level: 1
 
-## Deploy on Vercel
+Difficulty factor for medium level: 1.5
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Difficulty factor for hard level: 2
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Increase difficulty factor by 0.01 after every successful word attempt.
+
+Change the game level if difficulty factor crosses particular levels difficulty factor.
+
+Player should be able to stop the game by clicking on STOP GAME button
+
+Game score for the player is the total time player was able to remain in the game before game gets over either because his/her time runs out for a particular word or player Stops the game.
+
+Show previous games score for player in a sidebar
+
+Show best score for player
+
+Application UI should closely match with the provided UI design mocks.
+
+Note: Please deploy your application to Netlify(no other platforms allowed at this point) and Add your Application link to website section in About field 
+
+Additional Requirement
+Write Test cases for your components.
+Tips
+Deploy your application in very early stage and then do continous development.
+Test your application in Google Chrome, Mozilla firefox and Internet explorer 11.
+UI Design mocks
+UI design mocks are available in design-mocks folder
+
+	
+	
+	
+Adobe XD design link
+
+Zeplin web link
+
+Zeplin App Link: zpl://project?pid=5f75f13621f33094313f2b94
+
+Allowed Tech stack
+HTML, CSS, JavaScript
+Bootstrap
+ReactJS
+SCSS
+DOM Testing Library
+Jest and React Testing Library
+NOTE: React Component libraries like Material UI, Antd, Chakra UI are not allowed

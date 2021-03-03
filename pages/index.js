@@ -2,9 +2,8 @@ import styles from '../styles/Home.module.css'
 import React from 'react';
 import Router from 'next/router';
 import { clearStorage,addToStorage } from '../utils/localStorage';
-import { EASY,DIFF_OPTIONS,inGameUrl } from '../utils/consts';
+import { inGameUrl } from '../utils/consts';
 import useUserName from '../hooks/useUserName';
-import useDifficulty from '../hooks/useDifficulty';
 import dynamic from 'next/dynamic';
 
 const Header = dynamic(() => import('../components/Header'));
@@ -15,37 +14,22 @@ const Button = dynamic(() => import('../components/Button'));
 
 export default function Home() {
   const {userName, setUserName, emptyNameError, setEmptyNameError } = useUserName('');
-  const { diffFactor,setDiffFactor,diffLevel } = useDifficulty(EASY);
-
-  const handleUserName = (e) => {
-    setUserName(e.target.value);
-  }
 
   const startGame = () => {
-    clearStorage();
+    //clearStorage();
     if(!userName){
       setEmptyNameError(true);
-      console.log(emptyNameError);
       return; 
     }else{
       setEmptyNameError(false);
     }
     addToStorage('userName', userName);
-    addToStorage('diffFactor', diffFactor);
-    addToStorage('diffLevel', diffLevel);
     Router.push(inGameUrl);
   }
 
   return (
     <div className={styles.container}>
         <Header/>
-      {/* <div className={styles.container}>
-        <img
-          src="/assets/keyboard.png"
-          alt="Fast Finger Logo"  
-          className={styles.keyImg}
-        />
-        <div className={styles.title}>Fast Fingers</div> */}
         <Logo 
           logoClass={"logohomeContainer"}
           imgSrc={"/assets/keyboard.png"}
@@ -53,19 +37,17 @@ export default function Home() {
           imgClass={"keyImg"}
           textClass={"homeLogo"}
           text={"Fast Fingers"}
+          description={"the ultimate typing game"}
         />
         <TextBox 
                 id={"inputName"}
                 textBoxClass={"inputNameClass"}
                 text={userName}
-                changeFunction={handleUserName}
+                setText={setUserName}
                 placeholder={"Type your name"}
         />
         { emptyNameError ? <div className={styles.error}>Please enter a name.</div>:null }
-        <DropDown
-          diffOptions={DIFF_OPTIONS}
-          setDiffFactor={setDiffFactor}
-        />
+        <DropDown/>
         <Button
           styleClass
           clickFunction={startGame}

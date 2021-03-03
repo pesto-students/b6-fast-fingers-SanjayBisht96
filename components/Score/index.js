@@ -1,12 +1,16 @@
 import styles from '../../styles/Game.module.css';
-import Image from 'next/image';
-import { useEffect, useContext,useState } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import { useEffect,useRef } from 'react';
 import getFormattedTime from '../../utils/getFormattedTime';
 
-export default function Score() {
-  const score = useSelector(state => {return state.score.score});
-  console.log("score");
+export default function Score({score,timerOn=false,scoringOn,setScoringOn}) {
+    const timer = useRef(null);
+
+    useEffect(()=>{
+      if(timerOn || scoringOn) {
+        setScoringOn(scoringOn => timerOn);
+      }
+    },[timerOn,scoringOn])
+
     return  (<div className={styles.score}>
                 <div className={styles.text + ' ' + styles.userScore}>Score: </div>
                 <div className={styles.text}>{ getFormattedTime(score) }</div>

@@ -1,15 +1,9 @@
 import styles from '../../styles/Game.module.css';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import UserContext from '../UserContext';
+import useDifficulty from '../../hooks/useDifficulty';
 
 export default function Level() {
-    const [ diffLevel,setDiffLevel ] = useState(0);
-    useEffect(() => {
-        setDiffLevel(localStorage.getItem("diffLevel"));
-      },[])
-    
-
+    const { diffLevel } = useDifficulty();
+ 
     return  (<div className={styles.level}>
                 <img
                     src="/assets/gameController.png"

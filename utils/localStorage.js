@@ -1,15 +1,20 @@
 const clearStorage = () => {
-    localStorage.clear();
+    if (typeof window !== 'undefined') {
+        localStorage.clear();
+    }
 }
 
 const addToStorage = (key,val) => {
+    if (typeof window !== 'undefined') {
     localStorage.setItem(key,val)
+    }
 }
 
-const getFromStorage = (key,type) => {
+const getFromStorage = (key) => {
+    if (typeof window !== 'undefined') {
     let value = localStorage.getItem(key);
-    // WIP Errors for score
     return value;
+    }
 }
 
 export {

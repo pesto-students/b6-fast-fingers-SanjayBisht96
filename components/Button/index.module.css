@@ -10,3 +10,38 @@
   .startText{
     color: red;
   }
+
+  .Button{
+    color:red;
+    font-size: larger;
+    font-weight: 900;
+    color: red;
+    padding: 10px;
+    margin: 10px 20px; 
+  }
+
+  .Button:hover{
+    transform: scale(1.1);   
+  }
+  
+  .quitImg{
+    float: left;
+    margin-right: 10px;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .quitText{
+  
+  }
+
+  .stopImg{
+    float: left;
+    margin-right: 10px;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .stopText{
+    margin-top: 10px;
+  }

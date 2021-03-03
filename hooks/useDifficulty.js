@@ -1,25 +1,36 @@
-import { useState, useEffect } from "react";
-import { EASY,MEDIUM,HARD,DIFF_OPTIONS,DiffFactorToDiffLevel } from '../utils/consts';
+import { useState } from "react";
+import { EASY,MEDIUM,HARD,DIFF_OPTIONS } from '../utils/consts';
+import { getFromStorage,addToStorage} from '../utils/localStorage';
 
-function useDifficulty(level) {
-  const [diffFactor, setDiffFactor] = useState(DIFF_OPTIONS[level]);
-  const [diffLevel, setDiffLevel] = useState(level);
+function useDifficulty() {
+  const [diffFactor, setDiffFactor] = useState(()=> {
+    return parseFloat(getFromStorage("diffFactor")) ? parseFloat(getFromStorage("diffFactor")) : 1;
+});
+  const [diffLevel, setDiffLevel] = useState(() => {
+    return getFromStorage("diffLevel") ? getFromStorage("diffLevel") : 1;
+  });
 
-    useEffect(()=>{
-        if(diffFactor < DIFF_OPTIONS[MEDIUM]){
-            setDiffLevel(EASY);
-        }else if (diffFactor >= DIFF_OPTIONS[MEDIUM] && diffFactor < DIFF_OPTIONS[HARD]){
-            setDiffLevel(MEDIUM);
+
+    const setDiffValues = (factor) =>{
+        factor = parseFloat(factor);
+        setDiffFactor(factor);
+        if(factor < DIFF_OPTIONS[MEDIUM]){
+            setDiffLevel(diffLevel => EASY);
+            addToStorage("diffLevel",EASY);
+        }else if (factor >= DIFF_OPTIONS[MEDIUM] && factor < DIFF_OPTIONS[HARD]){
+            setDiffLevel(diffLevel => MEDIUM);
+            addToStorage("diffLevel",MEDIUM);
         } else {
-            setDiffLevel(HARD);
+            setDiffLevel(diffLevel => HARD);
+            addToStorage("diffLevel",HARD);
         }
-    },[diffFactor]);
+        addToStorage("diffFactor",factor);
+        }
 
     return {
-        diffFactor, 
-        setDiffFactor, 
+        diffFactor,  
         diffLevel,
-        setDiffLevel
+        setDiffValues
     }
 }
 export default useDifficulty;

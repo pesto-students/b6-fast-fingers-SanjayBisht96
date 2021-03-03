@@ -1,30 +1,17 @@
-import styles from '../../styles/Game.module.css';
-import Image from 'next/image';
 import getFormattedTime from '../../utils/getFormattedTime';
-import { useState, useEffect,useRef    } from 'react';
-//import './index.css';
+import styles from './index.module.css';
 
-export default function Clock(props) {
-
-//     useEffect(()=>{
-// // Start with an initial value of 20 seconds
-// const TIME_LIMIT = 20;
-
-// // Initially, no time has passed, but this will count up
-// // and subtract from the TIME_LIMIT
-// let timePassed = 0;
-// let timeLeft = TIME_LIMIT;
-//     },[time])
+export default function Clock({time}) {
 
 
-    return  (<div class="base-timer">
-    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <g class="base-timer__circle">
-        <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
+    return  (<div className={styles.base_timer}>
+    <svg className={styles.base_timer__svg} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g className={styles.base_timer__circle}>
+        <circle className={styles.base_timer__path_elapsed} cx="50" cy="50" r="45" />
         <path
         id="base-timer-path-remaining"
         stroke-dasharray="283"
-        class="base-timer__path-remaining remainingPathColor"
+        className={styles.base_timer__path_remaining + ' ' + styles.remainingPathColor}
         d="
           M 50, 50
           m -45, 0
@@ -34,8 +21,8 @@ export default function Clock(props) {
       ></path>        
       </g>
     </svg>
-    <span id="base-timer-label" class="base-timer__label">
-      { getFormattedTime(props.time) }
+    <span id="base-timer-label" className={styles.base_timer__label}>
+      { getFormattedTime(time) }
     </span>
   </div>
     )

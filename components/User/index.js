@@ -3,13 +3,13 @@ import Image from 'next/image';
 import { useContext, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
-const Logo = dynamic(() => import('../components/Logo'));
+const Logo = dynamic(() => import('../Logo'));
 
 export default function User() {
     const [user, setUser] = useState('');
 
     useEffect(() => {
-        setUser(localStorage.getItem("userName"));
+        setUser();
     },[])
 
     return  (<div className={styles.user}>

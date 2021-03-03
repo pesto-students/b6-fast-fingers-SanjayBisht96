@@ -1,20 +1,19 @@
-import styles from '../../styles/Game.module.css';
-import { useEffect, useContext, useState, memo } from 'react';
-import UserContext from '../UserContext';
+import styles from './index.module.css';
+import { useEffect, useState } from 'react';
 import getFormattedTime from '../../utils/getFormattedTime';
+import { getFromStorage } from '../../utils/localStorage';
 
-export default memo(function ScoreBoard(){
-  //const { userScoreList, addScoreToList, getFormattedTime } = useContext(UserContext);
+export default function ScoreBoard(){
+
   const [maxScoreIndex ,setMaxScoreIndex ] = useState(-1);
   const [retrievedList, setRetrievedList] = useState([]);
 
   useEffect(() => {
-    setRetrievedList(JSON.parse(localStorage.getItem("userScoreList")));
-      //addScoreToList(retrievedList);
-      if(retrievedList){
-        const maxScore = Math.max.apply(Math,retrievedList);
-        setMaxScoreIndex(retrievedList.indexOf(maxScore));
-      }
+    if(getFromStorage("scoreList")){
+      let list = JSON.parse(getFromStorage("scoreList"));
+      setRetrievedList( retrievedList => list);
+      setMaxScoreIndex(maxScoreIndex => list.indexOf(Math.max(...list)));
+    }
   },[]);
 
     return  (
@@ -23,14 +22,14 @@ export default memo(function ScoreBoard(){
                 <div id='scoreList' className={styles.title}>
                   { retrievedList &&
                   retrievedList.map((score,index) => (
-                    <div key={index} className={styles.scoreList}>
+                    <div  key={index} className={styles.scoreList}>
+                      <div className={styles.scoreText}>Game { index+1 }: { getFormattedTime(score) }</div>
                       {  maxScoreIndex == index &&
                        <div className={styles.personalBestText}>Personal Best!</div>
-                      }
-                      <div className={styles.scoreText}>Game { index+1 }: { getFormattedTime(score) }</div>
+                      }                      
                   </div>
                 ))}
                 </div>
             </div>
     )
-  });
+  }

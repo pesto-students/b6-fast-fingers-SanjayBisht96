@@ -21,7 +21,7 @@ const wordLengthLimit = {
 }
 
 const diffFactorIncrement = 0.01;
-const counterMiliSecSpeed = 100;
+const counterMiliSecSpeed = 10;
 
 // Routes 
 const homeUrl ="/";

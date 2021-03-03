@@ -1,6 +1,5 @@
-import React from 'react';
 import styles from './index.module.css';
-import { EASY,DIFF_OPTIONS } from '../../utils/consts';
+import { DIFF_OPTIONS } from '../../utils/consts';
 import useDifficulty from '../../hooks/useDifficulty';
 
 export default function DropDown(){
@@ -17,11 +16,11 @@ export default function DropDown(){
     });
 
     return(
-        <React.Fragment>
+        <>
             <select onChange={updateDiffValues} className={styles.selectLevel}>
                 {options}
             </select>
-        </React.Fragment>
+        </>
     );
 
 }

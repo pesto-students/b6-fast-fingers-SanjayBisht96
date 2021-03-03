@@ -25,9 +25,8 @@ export default function Game({time,setTime,setTimerOn}) {
   const { word, setWord, input, setInput } = useWord(diffLevel,onMatch);
 
   useEffect(()=>{
-    console.log(diffFactor);
     setTime(time => getTimeLimit(word));
-   setTimerOn(timerOn => true);
+    setTimerOn(timerOn => true);
   },[word])
 
 

@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.css'
 import React from 'react';
 import Router from 'next/router';
-import { clearStorage,addToStorage } from '../utils/localStorage';
+import { addToStorage } from '../utils/localStorage';
 import { inGameUrl } from '../utils/consts';
 import useUserName from '../hooks/useUserName';
 import dynamic from 'next/dynamic';
@@ -16,7 +16,6 @@ export default function Home() {
   const {userName, setUserName, emptyNameError, setEmptyNameError } = useUserName('');
 
   const startGame = () => {
-    //clearStorage();
     if(!userName){
       setEmptyNameError(true);
       return; 

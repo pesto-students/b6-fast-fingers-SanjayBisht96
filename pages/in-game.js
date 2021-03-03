@@ -35,7 +35,7 @@ export default function InGame() {
          setScoreList(scoreList => retrievedList);
          addToStorage("scoreList",JSON.stringify(retrievedList));       
          addToStorage("score",score); 
-         //Router.push(endGameUrl);
+         Router.push(endGameUrl);
     }
 
     useEffect(() => {

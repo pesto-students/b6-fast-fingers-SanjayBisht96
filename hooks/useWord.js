@@ -3,12 +3,17 @@ import { wordLengthLimit } from '../utils/consts';
 import data from '../public/data/dictionary.json';
 
 const getWord = (diffLevel) => {
-    const [minLength, maxLength] = wordLengthLimit[diffLevel];
-    let randomWord = data[Math.floor(Math.random() * data.length)];
-    while(randomWord.length < minLength || randomWord.length > maxLength){
-      randomWord = data[Math.floor(Math.random() * data.length)];
+    if(typeof diffLevel !== undefined && diffLevel !== ''){
+      if(Array.isArray(wordLengthLimit[diffLevel])){
+        const [minLength, maxLength] = wordLengthLimit[diffLevel];
+        let randomWord = data[Math.floor(Math.random() * data.length)];
+        while(randomWord.length < minLength || randomWord.length > maxLength){
+          randomWord = data[Math.floor(Math.random() * data.length)];
+        }
+        return randomWord.toUpperCase();
+      }
     }
-    return randomWord.toUpperCase();
+    return '';
   }
 
 

@@ -20,6 +20,8 @@ const wordLengthLimit = {
     "Hard": [8, Infinity]
 }
 
+const secToMilliSec = 1000;
+
 const diffFactorIncrement = 0.01;
 const counterMiliSecSpeed = 10;
 
@@ -28,4 +30,4 @@ const homeUrl ="/";
 const inGameUrl = "/in-game";
 const endGameUrl = "/game-over";
 
-export { EASY,MEDIUM,HARD,DIFF_OPTIONS,DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed, homeUrl, inGameUrl, endGameUrl };
+export { EASY,MEDIUM,HARD,DIFF_OPTIONS,DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed, homeUrl, inGameUrl, endGameUrl, secToMilliSec };

@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 import  useDifficulty from '../../hooks/useDifficulty';
 import  useWord from '../../hooks/useWord';
-import { diffFactorIncrement } from '../../utils/consts';
+import { diffFactorIncrement,secToMilliSec } from '../../utils/consts';
 
 const Clock = dynamic(() => import('../Clock'));
 const TextBox = dynamic(() => import('../TextBox'));
@@ -14,7 +14,7 @@ export default function Game({time,setTime,setTimerOn}) {
 
   const getTimeLimit = (newWord) => {
     setDiffValues(diffFactor + diffFactorIncrement);
-    let wordTimeLimit = Math.ceil( newWord.length / diffFactor)*1000;
+    let wordTimeLimit = Math.ceil( newWord.length / diffFactor)*secToMilliSec;
     return wordTimeLimit;
   }
 

@@ -6,7 +6,9 @@ import dynamic from 'next/dynamic';
 import useTime from '../hooks/useTime'
 import useUserName from '../hooks/useUserName';
 import useScore from '../hooks/useScore';
+import authPage from '../utils/authPage';
 import { getFromStorage,addToStorage } from '../utils/localStorage';
+import { saveScore } from '../utils/callApi';
 
 
 const Header = dynamic(() => import('../components/Header'));
@@ -33,17 +35,11 @@ export default function InGame() {
             retrievedList = [score];
          }
          setScoreList(scoreList => retrievedList);
-         addToStorage("scoreList",JSON.stringify(retrievedList));       
+         addToStorage("scoreList",JSON.stringify(retrievedList));
+         saveScore(userName,score);
          addToStorage("score",score); 
          Router.push(endGameUrl);
     }
-
-    useEffect(() => {
-        if(time <= 0 && timerOn){
-            stopGame();
-        }
-    }, [time,timerOn])
-
 
     return (
         <>
@@ -60,14 +56,13 @@ export default function InGame() {
                     />
                     <Level/>
                     <ScoreBoard 
-                        scoreList={scoreList} 
-                        setScoreList={setScoreList} 
-                        scoringOn={scoringOn}
+                        userName={userName}
+                        scoreList={scoreList}
                     />
                     <Button 
                         time={time} 
                         clickFunction={stopGame}
-                        styleClass={stopGame}
+                        styleClass={"stopGame"}
                         imgSrc={'/assets/stop.png'}
                         altText={"Stop Game"}
                         imgClass={"stopImg"}
@@ -82,6 +77,7 @@ export default function InGame() {
                         timerOn={timerOn}
                         setTimerOn={setTimerOn}
                         setScoringOn={scoringOn}
+                        stopGame={stopGame}
                     />
                 </div>
                 <div className={styles.right}>
@@ -107,3 +103,9 @@ export default function InGame() {
     </>
     )
 }
+
+InGame.getInitialProps = async (ctx) =>{
+
+    let resp = await authPage('http://localhost:3000/api/checkauth',ctx);
+    return {props : []};
+  }

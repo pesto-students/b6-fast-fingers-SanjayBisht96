@@ -5,6 +5,8 @@ import { homeUrl } from '../utils/consts';
 import useUserName from '../hooks/useUserName';
 import useScore from '../hooks/useScore';
 import Router  from 'next/router';
+import authPage from '../utils/authPage';
+import { addToStorage, getFromStorage } from '../utils/localStorage';
 
 const Header = dynamic(() => import('../components/Header'));
 const Logo = dynamic(() => import('../components/Logo'));
@@ -18,7 +20,9 @@ export default function GameOver() {
     const { userName } = useUserName('');
     const { score, setScore, scoreList,setScoreList, scoringOn } = useScore(false);
     const quitGame = () => {
+        let user = getFromStorage("userName");
         localStorage.clear();
+        addToStorage("userName",user);
         Router.push(homeUrl);
     }
 
@@ -37,8 +41,8 @@ export default function GameOver() {
                 />
                 <Level/>
                 <ScoreBoard 
-                    scoreList={scoreList} 
-                    setScoreList={setScoreList}
+                    userName={userName}
+                    scoreList={scoreList}
                 />
                 <Button 
                     clickFunction={quitGame}
@@ -51,7 +55,7 @@ export default function GameOver() {
              />
             </div>
             <div className={styles.middle}>
-                <EndGame score={score} setScoreList={setScoreList}/>
+                <EndGame score={score} userName={userName}/>
             </div>
             <div className={styles.right}>
                 <Logo 
@@ -74,3 +78,10 @@ export default function GameOver() {
     </ >
     )
 }
+
+
+GameOver.getInitialProps = async (ctx) =>{
+
+    let resp = await authPage('http://localhost:3000/api/checkauth',ctx);
+    return {props : []};
+  }

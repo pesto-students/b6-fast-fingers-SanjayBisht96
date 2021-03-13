@@ -9,7 +9,7 @@ const Clock = dynamic(() => import('../Clock'));
 const TextBox = dynamic(() => import('../TextBox'));
 const Word = dynamic(() => import('../Word'));
 
-export default function Game({time,setTime,setTimerOn}) {
+export default function Game({time,setTime,timerOn,setTimerOn,stopGame}) {
   const { diffLevel, diffFactor, setDiffValues } = useDifficulty();
 
   const getTimeLimit = (newWord) => {
@@ -25,9 +25,20 @@ export default function Game({time,setTime,setTimerOn}) {
   const { word, setWord, input, setInput } = useWord(diffLevel,onMatch);
 
   useEffect(()=>{
-    setTime(time => getTimeLimit(word));
-    setTimerOn(timerOn => true);
+      console.log("y",word);
+      if(word !== ''){
+        setTime(time => getTimeLimit(word));
+        setTimerOn(timerOn => true);
+      }
   },[word])
+
+  useEffect(() => {
+    if(time <= 0 && timerOn && word !==''){
+        stopGame();
+    }
+  }, [time,timerOn]);
+
+
 
 
 return  (<div className={styles.game}>

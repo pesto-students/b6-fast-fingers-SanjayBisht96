@@ -13,7 +13,7 @@ function useTime(val) {
         if(timerOn && time>0){
             timer.current = setInterval(() => {
                 setTime(time => time - counterMiliSecSpeed);
-              }, counterMiliSecSpeed);
+            }, counterMiliSecSpeed);
         }
     },[timerOn]);
 
@@ -21,7 +21,7 @@ function useTime(val) {
         if(time >= 0 && timerOn){
             setCircleDasharray(time,TIME_LIMIT.current);
           }        
-        if(!timerOn || time<=0){
+        if(!timerOn){
             clearInterval(timer.current);
         }
     },[time,timerOn]);    

@@ -2,19 +2,25 @@ import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import getFormattedTime from '../../utils/getFormattedTime';
 import { getFromStorage } from '../../utils/localStorage';
+import { getScore } from '../../utils/callApi';
 
-export default function ScoreBoard(){
+export default function ScoreBoard({userName,scoreList}){
 
   const [maxScoreIndex ,setMaxScoreIndex ] = useState(-1);
   const [retrievedList, setRetrievedList] = useState([]);
 
   useEffect(() => {
-    if(getFromStorage("scoreList")){
-      let list = JSON.parse(getFromStorage("scoreList"));
-      setRetrievedList( retrievedList => list);
-      setMaxScoreIndex(maxScoreIndex => list.indexOf(Math.max(...list)));
-    }
-  },[]);
+    async function setScoreBoard(){
+      let list = await getScore(userName);
+      console.log("x");
+      console.log(list);
+      if(list && list.length !== 0){
+        setRetrievedList( retrievedList => list)
+        setMaxScoreIndex( maxScoreIndex => list.indexOf(Math.max(...list)));
+      }
+   }
+    setScoreBoard();
+  },[scoreList]);
 
     return  (
             <div className={styles.scoreBoard}>

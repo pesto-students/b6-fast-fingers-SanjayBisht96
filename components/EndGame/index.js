@@ -5,19 +5,23 @@ import { inGameUrl } from '../../utils/consts';
 import getFormattedTime from '../../utils/getFormattedTime';
 import { getFromStorage,addToStorage } from '../../utils/localStorage';
 import dynamic from 'next/dynamic';
+import { getScore } from '../../utils/callApi';
 
 const Button = dynamic(() => import('../Button')); 
 
-export default function EndGame({score,scoreList}) {
+export default function EndGame({score,userName}) {
     const [maxScore ,setMaxScore ] = useState(-1);
     const continueGame = () => {
         Router.push(inGameUrl);
     }
     useEffect(() => {
-        let list = JSON.parse(getFromStorage("scoreList"));   
-        if(list){
-            setMaxScore(maxScore => Math.max(...list));
+        async function getMaxScore(){
+            let list = await getScore(userName);
+            if(list){
+                setMaxScore(maxScore => Math.max(...list));
+            }
         }
+        getMaxScore();
     },[maxScore]);
   
 

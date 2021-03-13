@@ -3,7 +3,6 @@ import { useEffect,useRef } from 'react';
 import getFormattedTime from '../../utils/getFormattedTime';
 
 export default function Score({score,timerOn=false,scoringOn,setScoringOn}) {
-    const timer = useRef(null);
 
     useEffect(()=>{
       if(timerOn || scoringOn) {

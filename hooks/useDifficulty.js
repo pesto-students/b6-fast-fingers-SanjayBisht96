@@ -7,7 +7,7 @@ function useDifficulty() {
     return parseFloat(getFromStorage("diffFactor")) ? parseFloat(getFromStorage("diffFactor")) : 1;
 });
   const [diffLevel, setDiffLevel] = useState(() => {
-    return getFromStorage("diffLevel") ? getFromStorage("diffLevel") : 1;
+    return getFromStorage("diffLevel") ? getFromStorage("diffLevel") : EASY;
   });
 
 

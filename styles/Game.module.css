@@ -1,0 +1,156 @@
+
+.left{
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+
+.middle{
+    width: 40%;
+    height: 100%;
+    float: left;
+}
+
+.right{
+    width: 30%;
+    height: 100%;
+    float: right;
+}
+
+.text, .stop{
+    //font-family: "Press Start 2P";
+    font-size: larger;
+    font-weight: 900;
+    color: red;
+    padding: 10px;
+}
+
+.img{
+    float: left;    
+    height: 2rem;
+    margin-right: 10px;
+}
+
+.logo {
+    margin: 20px;
+}
+
+.levelText {
+    float:left;
+}
+
+.level{
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.scoreText{
+    color:seashell;
+    //font-family: "Press Start 2P";
+    font-size: medium;
+    margin: 20px;
+}
+.personalBestText{
+    color:red;
+    //font-family: "Press Start 2P";
+    font-size: small;
+    text-align: center;
+}
+
+.scoreBoard {
+    border: 5px solid red;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin-top: 140px;
+    margin-left: 20px;
+    width:100%;
+    overflow: auto;
+}
+
+.stop{
+    margin-top: 100px;
+    float:left;
+}
+
+.stopImg {
+    float:left;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.stopText {
+    margin-top: 20px;
+    float: left;
+}
+
+.endGame {
+    //font-family: "Press Start 2P";
+    font-size: x-large;
+    color: seashell;
+    margin-top: 100px;
+    text-align: center;
+    padding: 100px;
+}
+
+.endText {
+    margin: 20px;
+}
+.imgPlayAgain {
+    width: 2rem;
+    margin-right: 1rem;
+}
+
+.userScore {
+    float: left;
+}
+
+.game{
+    font-size: x-large;
+    color: red;
+    margin-top: 100px;
+    text-align: center;
+    padding: 100px;
+}
+
+.matchText {
+    color:seashell;
+}
+
+.countDownTime {
+    border: 10px solid rgb(255, 0, 71,0.3);
+    padding: 50px;
+    border-radius: 10%;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.enterWord {
+    background-color: hsla(0,0%,96.1%,.404);
+    height: 50px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    outline: 0px solid transparent;
+    font-size: medium;
+    //font-family: "Press Start 2P";
+    width: 350px;
+    height: 50px;
+    box-shadow: 0 3px 16px 0 rgb(0 0 0 / 80%);
+    margin-top: 20px;
+    margin-bottom: 20px;    
+}
+
+.headImg{
+    width: 20px;
+}
+
+.user{
+    margin: 40px;
+}
+
+.userLogo{
+    width:64px;
+}

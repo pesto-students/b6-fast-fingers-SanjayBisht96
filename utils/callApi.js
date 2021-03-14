@@ -36,10 +36,13 @@ async function getScore(userName){
 
 }
 
-async function getRandomWord(){
+async function getRandomWord(diffLevel){
     const res = await fetch(
         '/api/getrandomword',
         {
+        body: JSON.stringify({
+                diffLevel: diffLevel
+        }),            
         headers: {
             'Content-Type': 'application/json'
         },
@@ -55,8 +58,49 @@ async function getRandomWord(){
 }
 
 
+async function getCurrentUser(){
+    const res = await fetch(
+        '/api/getuser',
+        {            
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST'
+        }
+    );
+
+    if(res.status === 200){
+        const {user} = await res.json();
+        return user;
+    }    
+
+}
+
+async function logout(){
+    const res = await fetch(
+        '/api/logout',
+        {            
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'POST'
+        }
+    );
+
+    if(res.status === 200){
+        
+        return true;
+    }    
+
+}
+
+
+
+
 export {
     saveScore,
     getScore,
-    getRandomWord
+    getRandomWord,
+    getCurrentUser,
+    logout
 };

@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
 import { getFromStorage } from "../utils/localStorage";
+import { getCurrentUser } from '../utils/callApi';
 
 function useUserName() {
     const [userName, setUserName] = useState('');
-    const [emptyNameError, setEmptyNameError] =useState(false);
+    const [emptyNameError, setEmptyNameError] = useState(false);
 
     useEffect(() => {
-        let name = getFromStorage("userName");
-        if(name){
-            setUserName(name);
-        }else{
-            setEmptyNameError(false);
+        async function getUser (){
+            let name = await getCurrentUser();
+            if(name){
+                setUserName(name);
+            }else{
+                setEmptyNameError(false);
+            }
         }
+        getUser();
     },[]);
 
     return {

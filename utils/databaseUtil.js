@@ -4,7 +4,6 @@ const util = require('util');
 function insertQuery (sql) {
     connection.query(sql, function (err, result) {
       if (err) throw err;
-      //console.log("1 record inserted");
     });
   }
 

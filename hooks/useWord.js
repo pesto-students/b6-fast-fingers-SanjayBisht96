@@ -7,9 +7,9 @@ const getWord = async (diffLevel) => {
     if(typeof diffLevel !== undefined && diffLevel !== ''){
       if(Array.isArray(wordLengthLimit[diffLevel])){
         const [minLength, maxLength] = wordLengthLimit[diffLevel];
-        let randomWord = await getRandomWord();
+        let randomWord = await getRandomWord(diffLevel);
         while(randomWord.length < minLength || randomWord.length > maxLength){
-          randomWord = await getRandomWord();
+          randomWord = await getRandomWord(diffLevel);
         }
         return randomWord.toUpperCase();
       }
@@ -18,26 +18,15 @@ const getWord = async (diffLevel) => {
   }
 
 
-function useWord(diffLevel, onMatch) {
+function useWord(diffLevel) {
     const [word, setWord] = useState('');
     const [input, setInput] = useState('');
-
-  //   useEffect(() => {
-  //       async function getWordSync(){
-  //         const randomWord = await getWord(diffLevel);
-  //         setWord(word => randomWord);
-  //         console.log("x",randomWord);
-  //       }
-  //       getWordSync();
-  // }, [])
-
 
     useEffect(() => {
         if (word === input) {
           async function getWordSync(){
             const randomWord = await getWord(diffLevel);
             setWord(randomWord);
-            onMatch(randomWord);
             setInput('');
           }
           getWordSync();

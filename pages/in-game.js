@@ -103,9 +103,3 @@ export default function InGame() {
     </>
     )
 }
-
-InGame.getInitialProps = async (ctx) =>{
-
-    let resp = await authPage('http://localhost:3000/api/checkauth',ctx);
-    return {props : []};
-  }

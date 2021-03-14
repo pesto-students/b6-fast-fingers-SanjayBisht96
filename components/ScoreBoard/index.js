@@ -2,7 +2,7 @@ import styles from './index.module.css';
 import { useEffect, useState } from 'react';
 import getFormattedTime from '../../utils/getFormattedTime';
 import { getFromStorage } from '../../utils/localStorage';
-import { getScore } from '../../utils/callApi';
+import { getScore, getCurrentUser } from '../../utils/callApi';
 
 export default function ScoreBoard({userName,scoreList}){
 
@@ -11,9 +11,8 @@ export default function ScoreBoard({userName,scoreList}){
 
   useEffect(() => {
     async function setScoreBoard(){
-      let list = await getScore(userName);
-      console.log("x");
-      console.log(list);
+      let name = await getCurrentUser();
+      let list = await getScore(name);
       if(list && list.length !== 0){
         setRetrievedList( retrievedList => list)
         setMaxScoreIndex( maxScoreIndex => list.indexOf(Math.max(...list)));

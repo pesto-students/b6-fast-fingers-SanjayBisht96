@@ -14,18 +14,13 @@ export default function Game({time,setTime,timerOn,setTimerOn,stopGame}) {
 
   const getTimeLimit = (newWord) => {
     setDiffValues(diffFactor + diffFactorIncrement);
-    let wordTimeLimit = Math.ceil( newWord.length / diffFactor)*secToMilliSec;
+    let wordTimeLimit = Math.ceil( (newWord.length / diffFactor)*secToMilliSec);
     return wordTimeLimit;
   }
 
-  const onMatch = (newWord) => {
-    setWord(word => newWord);
-  }
-
-  const { word, setWord, input, setInput } = useWord(diffLevel,onMatch);
+  const { word, setWord, input, setInput } = useWord(diffLevel);
 
   useEffect(()=>{
-      console.log("y",word);
       if(word !== ''){
         setTime(time => getTimeLimit(word));
         setTimerOn(timerOn => true);
@@ -54,6 +49,7 @@ return  (<div className={styles.game}>
                 />
                 <TextBox 
                   id={'playerInput'}
+                  type={"text"}
                   textBoxClass={"enterWord"} 
                   text={input}
                   setText={setInput}

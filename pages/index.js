@@ -2,10 +2,12 @@ import styles from '../styles/Home.module.css'
 import React from 'react';
 import Router from 'next/router';
 import { addToStorage } from '../utils/localStorage';
-import { inGameUrl } from '../utils/consts';
+import { homeUrl, inGameUrl } from '../utils/consts';
 import useUserName from '../hooks/useUserName';
 import authPage from '../utils/authPage';
 import dynamic from 'next/dynamic';
+import { withCookies, Cookies } from 'react-cookie';
+import { logout } from '../utils/callApi';
 
 const Header = dynamic(() => import('../components/Header'));
 const TextBox = dynamic(() => import('../components/TextBox'));
@@ -27,6 +29,11 @@ export default function Home() {
     Router.push(inGameUrl);
   }
 
+  const userLogOut = () => {
+    logout();
+    Router.push("/login");
+  }
+
   return (
     <div className={styles.container}>
         <Header/>
@@ -39,14 +46,6 @@ export default function Home() {
           text={"Fast Fingers"}
           description={"the ultimate typing game"}
         />
-        {/* <TextBox 
-                id={"inputName"}
-                textBoxClass={"inputNameClass"}
-                text={userName}
-                setText={setUserName}
-                placeholder={"Type your name"}
-        />
-        { emptyNameError ? <div className={styles.error}>Please enter a name.</div>:null } */}
         <DropDown/>
         <Button
           styleClass
@@ -57,12 +56,16 @@ export default function Home() {
           textClass={"startText"}
           ButtonText={"Start Game"}
         />
+        <Button
+        textClass={"startText"}
+        clickFunction={userLogOut}
+        ButtonText={"Logout"}
+        />
     </div>
   )
 }
 
 Home.getInitialProps = async (ctx) =>{
-
   let resp = await authPage('http://localhost:3000/api/checkauth',ctx);
   return {props : []};
 }

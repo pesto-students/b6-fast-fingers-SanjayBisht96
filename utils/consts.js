@@ -29,5 +29,7 @@ const counterMiliSecSpeed = 10;
 const homeUrl ="/";
 const inGameUrl = "/in-game";
 const endGameUrl = "/game-over";
+const registerUrl = "/register";
+const loginUrl = "/login";
 
-export { EASY,MEDIUM,HARD,DIFF_OPTIONS,DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed, homeUrl, inGameUrl, endGameUrl, secToMilliSec };
+export { EASY,MEDIUM,HARD,DIFF_OPTIONS,DiffFactorToDiffLevel, wordLengthLimit, diffFactorIncrement, counterMiliSecSpeed, homeUrl, inGameUrl, endGameUrl, registerUrl, loginUrl, secToMilliSec };
